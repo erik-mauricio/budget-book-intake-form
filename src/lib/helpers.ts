@@ -1,5 +1,10 @@
 export type PeriodOption = { value: string; label: string; start: Date; end: Date }
 
+/**
+ * Returns the list of reporting periods for a given frequency and fiscal year.
+ * Fiscal years run July 1 – June 30. `fiscalYearLabel` must be in the format "FY2025".
+ * Supports "annual", "semi-annual", "quarterly", and "monthly".
+ */
 export function getPeriodsForFrequency(frequency: string, fiscalYearLabel: string): PeriodOption[] {
   const startYear = parseInt(fiscalYearLabel.slice(2, 6), 10)
   if (isNaN(startYear)) return []
@@ -34,6 +39,9 @@ export function getPeriodsForFrequency(frequency: string, fiscalYearLabel: strin
   return []
 }
 
+/**
+ * Returns the `value` of the period that contains today's date, or null if none match.
+ */
 export function getCurrentPeriod(periods: PeriodOption[]): string | null {
   const now = new Date()
   now.setHours(0, 0, 0, 0)
